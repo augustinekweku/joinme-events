@@ -42,11 +42,11 @@ export  function formatToTime(date) {
     return getDate;
   }
 
- export  function formatToDay(date) {
+ export  function formatToDay(date_value) {
     let unix_timestamp = date;
     // Create a new JavaScript Date object based on the timestamp
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-    var date = new Date(unix_timestamp * 1000);
+    var date = new Date(date_value);
     var day = date.getDay();
     let days = [
       "Sunday",
@@ -86,3 +86,4 @@ export  function formatToTime(date) {
     let getDate = dayofMonth + " " + months[month] + " " + year;
     return getDate;
   }
+

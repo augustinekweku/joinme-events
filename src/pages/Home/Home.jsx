@@ -141,7 +141,7 @@ const Home = () => {
                     <div className="card">
                       <div className="card-body">
                         <div className="details mb-4">
-                          <div>
+                          <div className="text-center">
                             <h4 className="fw-bold mb-1">
                               {formatDate(event.event_date)}
                             </h4>
