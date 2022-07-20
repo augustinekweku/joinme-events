@@ -57,7 +57,8 @@ const AddEventModal = () => {
     const req = await addDoc(collection(db, "events"), eventObj);
     console.log(req.id);
     if (req.id) {
-      setShow(true);
+      setShow(false);
+      window.location.reload();
     }
   };
   return (

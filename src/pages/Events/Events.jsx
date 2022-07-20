@@ -15,6 +15,7 @@ import Moment from "moment";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import AddEventModal from "../../components/AddEventModal/AddEventModal";
+import { formatDate } from "../../functions";
 const Events = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -58,8 +59,10 @@ const Events = () => {
                       <div className="card-body">
                         <div className="details mb-4">
                           <div>
-                            <h4 className="fw-bold mb-1">{event.event_date}</h4>
-                            <p className="mb-0">{event.event_time}GMT</p>
+                            <h4 className="fw-bold mb-1">
+                              {formatDate(event.event_date)}
+                            </h4>
+                            <p className="mb-0">{event.event_time} GMT</p>
                           </div>
                         </div>
                         <div className="d-flex justify-content-between mb-3 align-items-center">

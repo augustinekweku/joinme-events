@@ -17,12 +17,19 @@ import { db } from "../../firebase";
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
-import { formatToDate, formatToTime, formatToDay } from "../../functions";
+import {
+  formatToDate,
+  formatToTime,
+  formatToDay,
+  formatDate,
+} from "../../functions";
 import Modal from "react-bootstrap/Modal";
 import { allRegions } from "../../regions";
 
 const Home = () => {
+  let navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [show, setShow] = useState(false);
 
@@ -40,7 +47,11 @@ const Home = () => {
   useEffect(() => {
     let allEvents = [];
     async function getData() {
-      const allDocs = query(collection(db, "events"), orderBy("title"));
+      const allDocs = query(
+        collection(db, "events"),
+        orderBy("title"),
+        limit(4)
+      );
       const querySnapshot = await getDocs(allDocs);
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -72,7 +83,8 @@ const Home = () => {
     const req = await addDoc(collection(db, "events"), eventObj);
     console.log(req.id);
     if (req.id) {
-      setShow(true);
+      setShow(false);
+      navigate("/all-events", { replace: true });
     }
   };
 
@@ -130,7 +142,9 @@ const Home = () => {
                       <div className="card-body">
                         <div className="details mb-4">
                           <div>
-                            <h4 className="fw-bold mb-1">{event.event_date}</h4>
+                            <h4 className="fw-bold mb-1">
+                              {formatDate(event.event_date)}
+                            </h4>
                             <p className="mb-0">{event.event_time} GMT</p>
                           </div>
                         </div>

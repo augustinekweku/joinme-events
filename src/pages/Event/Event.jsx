@@ -17,6 +17,7 @@ import Moment from "moment";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import AddEventModal from "../../components/AddEventModal/AddEventModal";
+import { formatDate } from "../../functions";
 
 const Event = () => {
   let { id } = useParams();
@@ -113,7 +114,11 @@ const Event = () => {
   useEffect(() => {
     let allEvents = [];
     async function getData() {
-      const allDocs = query(collection(db, "events"), orderBy("event_id"));
+      const allDocs = query(
+        collection(db, "events"),
+        orderBy("event_id"),
+        limit(4)
+      );
       const querySnapshot = await getDocs(allDocs);
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -151,7 +156,9 @@ const Event = () => {
                         </div>
 
                         <div>
-                          <h3 className="fw-bold">{event.event_date}</h3>
+                          <h3 className="fw-bold">
+                            {formatDate(event.event_date)}
+                          </h3>
                           <p className="mb-0 h6">{event.event_time} GMT</p>
                         </div>
                       </div>
@@ -197,7 +204,9 @@ const Event = () => {
                       <div className="card-body">
                         <div className="details mb-4">
                           <div>
-                            <h4 className="fw-bold mb-1">{event.event_date}</h4>
+                            <h4 className="fw-bold mb-1">
+                              {formatDate(event.event_date)}
+                            </h4>
                             <p className="mb-0">{event.event_time} GMT</p>
                           </div>
                         </div>

@@ -60,3 +60,29 @@ export  function formatToTime(date) {
     const get_day = days[day];
     return get_day;
   }
+
+  export  function formatDate(date_value) {
+    // Create a new JavaScript Date object based on the timestamp
+    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+    var date = new Date(date_value);
+    let month = date.getMonth() + 1;
+    let dayofMonth = date.getDate();
+    let year = date.getFullYear();
+    let months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    let getDate = dayofMonth + " " + months[month] + " " + year;
+    return getDate;
+  }
